@@ -4,7 +4,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import axios from "axios";
-import { getAppointmentsForDay } from '../helpers/selectors';
+import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -20,17 +20,27 @@ export default function Application(props) {
       axios.get('/api/interviewers')
     ]).then((all) => {
       const [first, second, third] = all;
-      console.log(second);
-      setState(prevState => ({ ...prevState, days: first.data, appointments: second.data }))
-
+      setState(prevState => ({ ...prevState, days: first.data, appointments: second.data, interviewers: third.data }))
     });
   }, [])
 
   const setDay = day => setState({ ...state, day });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const schedule = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+    console.log(interview);
 
-  return (
+    return (
+      <Appointment
+      key={appointment.id}
+      id={appointment.id}
+      time={appointment.time}
+      interview={appointment.interview}/>
+    )
+  })
+
+   return (
     <main className="layout">
       <section className="sidebar">
         <img
@@ -55,9 +65,7 @@ export default function Application(props) {
 
       <section className="schedule">
         {
-          dailyAppointments.map(appointment => (
-            <Appointment key={appointment.id} {...appointment}/>
-          ))
+          schedule
         }
       </section>
     </main>
