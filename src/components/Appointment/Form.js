@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import InterviewerList from "components/InterviewerList";
-import InterviewerListItem from "components/InterviewerListItem";
 import Button from "components/Button";
 
 import "./styles.scss";
@@ -33,16 +32,11 @@ export default function Form(props) {
           />
         </form>
         <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer}/>
-        {
-        interviewers && interviewers.map(eachInterviewer => {
-            return <InterviewerListItem props={eachInterviewer}/>
-          })
-        }
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={() => cancel()}>Cancel</Button>
-          <Button confirm onClick={onSave}>Save</Button>
+          <Button confirm onClick={() => onSave(student, interviewer)}>Save</Button>
         </section>
       </section>
     </main>
