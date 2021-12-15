@@ -1,23 +1,31 @@
-# Interview Scheduler
+# Scheduler Project
 
-## Setup
+Scheduler is a simple, single-page interview scheduler application.
 
-Install dependencies with `npm install`.
+## Final Product
 
-## Running Webpack Development Server
+!["Screenshot of URLs page"](./docs/1.gif)
 
-```sh
-npm start
+!["Screenshot of Edit page"](./docs/2.gif)
+
+## Dependencies
+
+- Node.js
+- Express
+- Chance
+- body-parser
+- md5
+
+## Getting Started
+
+Install the dependencies.
+
+```bash
+npm install
 ```
 
-## Running Jest Test Framework
+Run the app.
 
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
+```bash
+npm run local
 ```

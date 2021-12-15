@@ -20,7 +20,6 @@ export default function Application() {
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const schedule = dailyAppointments.map(appointment => {
-    // getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
 
     return (

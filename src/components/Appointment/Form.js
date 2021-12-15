@@ -6,11 +6,12 @@ import "./styles.scss";
 export default function Form(props) {
   const [error, setError] = useState("");
   const {interviewers, onSave, onCancel} = props;
-  const [student, setStudent] = useState(props.name || "");
+  const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   function reset() {
     setStudent("");
+    setError("");
     setInterviewer("");
   }
 
