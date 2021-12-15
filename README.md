@@ -4,17 +4,20 @@ Scheduler is a simple, single-page interview scheduler application.
 
 ## Final Product
 
-!["Screenshot of URLs page"](./docs/1.gif)
+!["Screenshot of Home page"](./docs/images/appointment-home.png)
 
-!["Screenshot of Edit page"](./docs/2.gif)
+!["Screenshot of Create new appointment"](./docs/images/appointment-form.png)
 
 ## Dependencies
 
-- Node.js
-- Express
-- Chance
-- body-parser
-- md5
+- React
+- Axios
+- Classnames
+- Normalize.css
+- react-dom
+- react-scripts
+- react-test-renderer
+- prop-types
 
 ## Getting Started
 
@@ -24,8 +27,15 @@ Install the dependencies.
 npm install
 ```
 
+Install and run the API Server.
+
+```
+https://web.compass.lighthouselabs.ca/696c1dc0-f804-4203-a94c-a174d8ed6093
+https://github.com/lighthouse-labs/scheduler-api
+```
+
 Run the app.
 
 ```bash
-npm run local
+npm run start
 ```
