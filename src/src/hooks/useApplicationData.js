@@ -65,18 +65,12 @@ export default function useApplicationData(initial) {
     const days = updateSpots(isExist? 0 : -1);
 
     // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
-    return new Promise((resolve, reject) => {
-      axios.put(`/api/appointments/${id}`, { interview }).then(response => {
+    return axios.put(`/api/appointments/${id}`, { interview }).then(response => {
         // When the response comes back we update the state using the existing setState.
         if(response.status === 204) {
           setState(prevState => ({ ...prevState, appointments, days }));
-          resolve();
         }
-      }).catch(() => {
-        reject();
-      })
-    });
-
+    })
   }
 
 
@@ -95,19 +89,12 @@ export default function useApplicationData(initial) {
     const days = updateSpots(1);
 
     // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
-    return new Promise((resolve, reject) => {
-      axios.delete(`/api/appointments/${id}`).then(response => {
+    return axios.delete(`/api/appointments/${id}`).then(response => {
         // When the response comes back we update the state using the existing setState.
         if(response.status === 204) {
           setState(prevState => ({ ...prevState, appointments, days }));
-          resolve();
         }
-      }).catch(() => {
-        reject();
-      })
     });
-
-    // Transition to SHOW when the promise returned by props.bookInterview resolves. This means that the PUT request is complete.
   }
 
   return {
