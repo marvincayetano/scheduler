@@ -6,9 +6,10 @@ export default function useVisualMode(initial) {
 
   function transition(newMode, replace = false) {
     setMode(newMode);
+    console.log("TRANSITION");
 
     if(replace) {
-      const tempArr = history;
+      const tempArr = [...history];
       tempArr.pop();
       setHistory([...tempArr, newMode]);
     } else {
@@ -17,11 +18,14 @@ export default function useVisualMode(initial) {
   }
 
   function back() {
-    const tempArr = history;
+    const tempArr = [...history];
+    console.log("BEFORE POP", tempArr);
     tempArr.pop();
+    console.log("AFTER POP", tempArr);
 
-    setHistory([...tempArr])
+    setHistory(tempArr);
     if(tempArr.length > 0) {
+      console.log(tempArr[tempArr.length - 1]);
       setMode(tempArr[tempArr.length - 1])
     }
   }
