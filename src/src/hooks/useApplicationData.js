@@ -27,6 +27,25 @@ export default function useApplicationData(initial) {
     }
   }
 
+  function updateSpots(value) {
+    // Get the day
+    let dayIndex = -1;
+    for(let i = 0; i < state.days.length; i++) {
+      if(state.day === state.days[i].name) {
+        dayIndex = i;
+        break;
+      }
+    }
+
+    const days = [
+      ...state.days,
+    ]
+
+    days[dayIndex] = { ...days[dayIndex], spots: countSpots(getAppointmentsForDay(state, state.day)) + value};
+
+    return days;
+  }
+
   function bookInterview(id, interview) {
     // Check if there is already an appointment in the spot
     // Then don't subtract 1 if there is already
@@ -43,20 +62,7 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
-    // Get the day
-    let dayIndex = -1;
-    for(let i = 0; i < state.days.length; i++) {
-      if(state.day === state.days[i].name) {
-        dayIndex = i;
-        break;
-      }
-    }
-
-    const days = [
-      ...state.days,
-    ]
-
-    days[dayIndex] = { ...days[dayIndex], spots: countSpots(getAppointmentsForDay(state, state.day)) - (isExist? 0: 1)};
+    const days = updateSpots(isExist? 0 : -1);
 
     // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
     return new Promise((resolve, reject) => {
@@ -71,7 +77,6 @@ export default function useApplicationData(initial) {
       })
     });
 
-    // Transition to SHOW when the promise returned by props.bookInterview resolves. This means that the PUT request is complete.
   }
 
 
@@ -87,19 +92,7 @@ export default function useApplicationData(initial) {
     };
 
     // Get the day
-    let dayIndex = -1;
-    for(let i = 0; i < state.days.length; i++) {
-      if(state.day === state.days[i].name) {
-        dayIndex = i;
-        break;
-      }
-    }
-
-    const days = [
-      ...state.days,
-    ]
-
-    days[dayIndex] = { ...days[dayIndex], spots: countSpots(getAppointmentsForDay(state, state.day)) + 1};
+    const days = updateSpots(1);
 
     // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
     return new Promise((resolve, reject) => {
