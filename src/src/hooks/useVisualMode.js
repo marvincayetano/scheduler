@@ -6,7 +6,6 @@ export default function useVisualMode(initial) {
 
   function transition(newMode, replace = false) {
     setMode(newMode);
-    console.log("TRANSITION");
 
     if(replace) {
       const tempArr = [...history];
@@ -19,9 +18,7 @@ export default function useVisualMode(initial) {
 
   function back() {
     const tempArr = [...history];
-    console.log("BEFORE POP", tempArr);
     tempArr.pop();
-    console.log("AFTER POP", tempArr);
 
     setHistory(tempArr);
     if(tempArr.length > 0) {

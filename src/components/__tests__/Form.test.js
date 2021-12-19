@@ -62,8 +62,8 @@ describe("Form", () => {
 
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
 
-    expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+    // Still can't save because there is no interviewer selected
+    expect(onSave).toHaveBeenCalledTimes(0);
   });
 
   it("calls onCancel and resets the input field", () => {
