@@ -28,10 +28,15 @@ export default function useApplicationData(initial) {
   }
 
   function bookInterview(id, interview) {
+    // Check if there is already an appointment in the spot
+    // Then don't subtract 1 if there is already
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
     };
+
+    const isExist = appointment.interview !== null;
+
+    appointment.interview = { ...interview }
 
     const appointments = {
       ...state.appointments,
@@ -51,7 +56,7 @@ export default function useApplicationData(initial) {
       ...state.days,
     ]
 
-    days[dayIndex] = { ...days[dayIndex], spots: countSpots(getAppointmentsForDay(state, state.day)) - 1};
+    days[dayIndex] = { ...days[dayIndex], spots: countSpots(getAppointmentsForDay(state, state.day)) - (isExist? 0: 1)};
 
     // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
     return new Promise((resolve, reject) => {
